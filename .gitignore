@@ -1,0 +1,15 @@
+.history/**
+convertor/__pycache__/**
+test/__pycache__/**
+test/convertor/__pycache__/**
+test/ppmpmessage/convertor/__pycache__/**
+test/ppmpmessage/__pycache__/**
+ppmpmessage/convertor/__pycache__/**
+ppmpmessage/__pycache__/**
+.vscode/*
+.pytest_cache/v/cache/*
+**/__pycache__/*
+build/**
+dist/**
+ppmpmessage.egg-info/*
+ppmpmessage-env/**
