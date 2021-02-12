@@ -32,7 +32,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name=NAME,
-    version_format='{tag}.dev{commitcount}+{gitsha}',
+    # version_format='{tag}.dev{commitcount}+{gitsha}',
+    version_config=True,
     author="srw2ho",
     author_email="",
     description="",
