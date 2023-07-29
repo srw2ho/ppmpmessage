@@ -33,7 +33,17 @@ class Device(object):
         # set own hostname
         if not hasattr(self, 'additionalData'):
             self.additionalData = {}
-        self.additionalData['hostname'] = hostname
+        else:
+              if not 'hostname' in self.additionalData:
+                self.additionalData['hostname'] = hostname
+    # set netId to fix string
+    def setNetId(self, net_id):
+        self.__net_id = net_id
+
+    def sethostNameByNetId(self, net_id):
+        hostname = self.additionalData['hostname']
+        newhostname = f'{hostname}.{net_id}'
+        self.additionalData['hostname'] = newhostname
 
     def __getstate__(self):
         odict = self.__dict__.copy()
@@ -57,38 +67,50 @@ class Device(object):
     def getMacaddress(self):
         return self.__macaddress
 
-    def info_topic(self):
+    def info_topic(self, net_id=None):
         """ Returns the device's info topic
 
         Returns:
             [str] -- MQTT topic to retrieve device info
         """
-        return f'{self.__net_name}/{self.__net_id}/info'
+        if net_id is None:
+            return f'{self.__net_name}/{self.__net_id}/info'
+        else:
+            return f'{self.__net_name}/{net_id}/info'
 
-    def ppmp_topic(self):
+    def ppmp_topic(self, net_id=None):
         """ Returns the device's ppmp topic
 
         Returns:
             [str] -- MQTT topic to retrieve device measurement messages
         """
-        return f'{self.__net_name}/{self.__net_id}/ppmp'
+        if net_id is None:
+            return f'{self.__net_name}/{self.__net_id}/ppmp'
+        else:
+            return f'{self.__net_name}/{net_id}/ppmp'
 
-    def control_set_topic(self):
+        # return f'{self.__net_name}/{self.__net_id}/ppmp'
+    def control_set_topic(self, net_id=None):
         """ Returns the device's control set topic
 
         Returns:
             [str] -- MQTT topic to trigger commands on the device
         """
-        return f'{self.__net_name}/{self.__net_id}/control/set'
+        if net_id is None:
+            return f'{self.__net_name}/{self.__net_id}/control/set'
+        else:
+            return f'{self.__net_name}/{net_id}/control/set'
 
-    def control_topic(self):
+    def control_topic(self, net_id=None):
         """ Returns the device's control topic
 
         Returns:
             [str] -- MQTT topic to retrieve commands responses on the device
         """
-        return f'{self.__net_name}/{self.__net_id}/control'
-
+        if net_id is None:
+            return f'{self.__net_name}/{self.__net_id}/control'
+        else:
+            return f'{self.__net_name}/{net_id}/control'
 
 
 class iotHubDevice(Device):
